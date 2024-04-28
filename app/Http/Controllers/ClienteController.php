@@ -2,70 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
-use Illuminate\Queue\Failed\PrunableFailedJobProvider;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
-    public function clientebanco()
-    {
-      
-    }
-    
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $clientes = Cliente::all();
+        return response()->json($clientes);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $cliente = Cliente::create($request->all());
+        return response()->json($cliente, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        return response()->json($cliente);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $cliente->update($request->all());
+        return response()->json($cliente, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $cliente->delete();
+        return response()->json(null, 204);
     }
 }

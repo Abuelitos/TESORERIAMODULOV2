@@ -21,5 +21,7 @@ class Cliente extends Model
         'Celular',
     ];
 
+    protected $id = 'dui';
+
     
 }

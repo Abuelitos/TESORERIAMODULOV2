@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\NotaCargp;
 use Illuminate\Http\Request;
+use App\Models\Banco;
+use App\Models\Cliente;
 
 class NotaCargoController extends Controller
 {
@@ -12,7 +15,8 @@ class NotaCargoController extends Controller
      */
     public function index()
     {
-        //
+     
+        return view('notasCargos.index');
     }
 
     /**

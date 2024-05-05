@@ -12,7 +12,7 @@ class RemesasCobroController extends Controller
      */
     public function index()
     {
-        //
+        return view('remesasCobros.index');
     }
 
     /**

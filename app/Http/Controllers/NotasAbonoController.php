@@ -12,7 +12,7 @@ class NotasAbonoController extends Controller
      */
     public function index()
     {
-        //
+        return view('notasAbonos.index');
     }
 
     /**

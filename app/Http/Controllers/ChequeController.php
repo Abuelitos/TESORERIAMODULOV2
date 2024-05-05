@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Cheque;
+use App\Models\Banco;
+use App\Models\Cliente;
 
 class ChequeController extends Controller
 {
@@ -12,7 +15,7 @@ class ChequeController extends Controller
      */
     public function index()
     {
-        //
+        return view('cheques.index');
     }
 
     /**

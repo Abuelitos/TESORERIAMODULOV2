@@ -12,7 +12,7 @@ class RemesasPagoController extends Controller
      */
     public function index()
     {
-        //
+        return view('remesasPagos.index');
     }
 
     /**

@@ -182,14 +182,6 @@
                 </div>
             </div>
         </div>
-        <script>
-            @if(!session('message'))
-            Swal.fire({
-                title: "Good job!",
-                text: "{{ session('message') }}",
-                icon: "success"
-            });
-            @endif
-        </script>
+    </div>
 
         @endsection

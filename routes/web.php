@@ -25,7 +25,14 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;            
+use App\Http\Controllers\ChangePassword;   
+use App\Http\Controllers\TranferenciaController;
+use App\Http\Controllers\NotaCargoController;
+use App\Http\Controllers\NotasAbonoController;
+use App\Http\Controllers\RemesasPagoController;
+use App\Http\Controllers\RemesasCobroController;
+use App\Http\Controllers\ChequeController;
+
             
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -40,6 +47,13 @@ Route::get('/', function () {return redirect('/dashboard');})->middleware('auth'
 	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('clientes', ClienteController::class);
+	Route::resource('bancos', BancoController::class);
+	Route::resource('tranferencias', TranferenciaController::class);
+	Route::resource('notasCargos', NotaCargoController::class);
+	Route::resource('notasAbonos', NotasAbonoController::class);
+	Route::resource('remesasPagos', RemesasPagoController::class);
+	Route::resource('remesasCobros', RemesasCobroController::class);
+	Route::resource('cheques', ChequeController::class);
 	Route::get('/clientes/{cliente}/cambiar-estado', [ClienteController::class, 'cambiarEstado'])->name('cliente.cambiarEstado');
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');

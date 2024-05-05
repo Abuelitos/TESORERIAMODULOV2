@@ -12,7 +12,7 @@ class TranferenciaController extends Controller
      */
     public function index()
     {
-        //
+        return view('tranferencias.index');
     }
 
     /**

@@ -48,6 +48,13 @@ class ClienteController extends Controller
         return response()->json($cliente);
     }
 
+
+    public function edit($id)
+    {
+        $cliente = Cliente::findOrFail($id);
+        return view('clientes.edit', compact('cliente'));
+    }
+
     public function update(Request $request, $id)
     {
         $cliente = Cliente::findOrFail($id);

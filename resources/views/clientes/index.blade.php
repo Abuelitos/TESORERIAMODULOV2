@@ -147,11 +147,13 @@
                                         </td>
                                         <td class="align-middle">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
+                                                data-toggle="modal" data-bs-target="#editClienteModal{{ $cliente->dui}}" data-original-title="Edit user">
                                                 Edit
                                             </a>
                                         </td>
                                     </tr>
+
+                                        {{-- @include('clientes.edit', ['cliente' => $cliente])  --}}
                                     @endforeach
                                 </tbody>
                             </table>

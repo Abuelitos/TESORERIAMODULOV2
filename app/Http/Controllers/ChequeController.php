@@ -15,7 +15,8 @@ class ChequeController extends Controller
      */
     public function index()
     {
-        return view('cheques.index');
+        $cheques = Cheque::all();
+        return view('cheques.index', compact('cheques'));
     }
 
     /**
@@ -31,9 +32,34 @@ class ChequeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        dd($request->all());
+        // Validar los datos
+        $request->validate([
+            'lugar' => 'required|string|max:255',
+            'Fecha' => 'required|date',
+            'BancoPagador' => 'required|integer',
+            'cuentaBancoPagador' => 'required|integer',
+            'direccion' => 'required|numeric',
+            'telefono' => 'required|string|max:255',
+            'celular' => 'required|boolean',
+        ]);
 
+        // Crear un nuevo cheque
+        $cheque = new Cheque;
+        $cheque->Lugar = $request->input('lugar');
+        $cheque->Fecha = $request->input('Fecha');
+        $cheque->BancoPagador = $request->input('BancoPagador');
+        $cheque->CuentaBancoPagador = $request->input('cuentaBancoPagador');
+        $cheque->MontoNumeros = $request->input('direccion');
+        $cheque->MontosLetras = $request->input('telefono');
+        $cheque->Firmas = $request->input('celular') ? 1 : 0; // Convierte el valor del checkbox a booleano
+
+        // Guardar el cheque en la base de datos
+        $cheque->save();
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('cheques.index')->with('success', 'Cheque creado exitosamente');
+    }
     /**
      * Display the specified resource.
      */

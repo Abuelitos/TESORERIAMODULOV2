@@ -89,8 +89,8 @@
                                             Monto</th>
                                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                             Fecha</th>
-                                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Firma</th>
+                                        {{-- <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                            Firma</th> --}}
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
@@ -99,16 +99,13 @@
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $cheque->Lugar}}</h6>                                                    
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{$cheque->BancoPagador}}</p>                                            
+                                            <p class="text-xs font-weight-bold mb-0">{{$cheque->Banco->nombre}}</p>                                            
                                         </td>
                                         <td class="align-middle text-center text-sm">
                                             <span class="badge badge-sm bg-gradient-success">{{$cheque->MontoNumeros}}</span>
@@ -116,9 +113,9 @@
                                         <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{$cheque->Fecha}}</span>
                                         </td>
-                                        <td class="align-middle text-center">
+                                        {{-- <td class="align-middle text-center">
                                             <span class="text-secondary text-xs font-weight-bold">{{$cheque->Firma}}</span>
-                                        </td>
+                                        </td> --}}
                                         <td class="align-middle">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                 Edit

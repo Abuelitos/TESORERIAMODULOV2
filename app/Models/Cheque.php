@@ -19,13 +19,14 @@ class Cheque extends Model
         'Firmas'
     ];
     
+    protected $table = 'cheques';
     protected $guarded = [
         'ID'
     ];
 
     public function banco()
     {
-        return $this->belongsTo(Banco::class, 'BancoPagador', 'ID');
+        return $this->belongsTo(Banco::class, 'BancoPagador', 'idbanco');
     }
 
 }

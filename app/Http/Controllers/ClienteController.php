@@ -12,7 +12,6 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::all();
         return view('clientes.index', compact('clientes'));
-
     }
 
     public function store(Request $request)

@@ -2,64 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\Transferencia;
+use App\Models\Banco;
 use Illuminate\Http\Request;
 
 class TranferenciaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('tranferencias.index');
+        // Obtener todas las transferencias con sus bancos asociados
+        $transferencias = Transferencia::with(['bancoOrigen', 'bancoDestino'])->get();
+        $bancos = Banco::all();
+        return view('tranferencias.index', compact('transferencias', 'bancos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los datos de entrada
+        $request->validate([
+            'Lugar' => 'required|string|max:255',
+            'FechaProcesamiento' => 'required|date',
+            'FechaEjecucion' => 'required|date',
+            'BancoOrigen' => 'required|integer',
+            'CuentaBancoOrigen' => 'required|string|max:255',
+            'MontoNumeros' => 'required|numeric',
+            'MontosLetras' => 'required|string|max:255',
+            'BancoDestino' => 'required|integer',
+            'NombreReceptor' => 'required|string|max:255',
+            'CuentaBancoReceptor' => 'required|string|max:255',
+            'MontoNumerosDestino' => 'required|numeric',
+            'MontosLetrasDestino' => 'required|string|max:255',
+            'TipoTransferencia' => 'required|string|max:255',
+            'ConceptoTransferencia' => 'required|string|max:255',
+            'CorreoReceptor' => 'nullable|string|max:255',
+            'TelefonoReceptor' => 'nullable|string|max:255',
+            'DireccionReceptor' => 'nullable|string|max:255',
+            'Pais' => 'nullable|string|max:255',
+            'ComisionesBancarias' => 'nullable|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
+
+        // Crear la transferencia
+        Transferencia::create($request->all());
+
+        return redirect()->route('tranferencias.index')->with('success', 'Transferencia creada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validar los datos de entrada
+        $request->validate([
+            'Lugar' => 'required|string|max:255',
+            'FechaProcesamiento' => 'required|date',
+            'FechaEjecucion' => 'required|date',
+            'BancoOrigen' => 'required|integer',
+            'CuentaBancoOrigen' => 'required|string|max:255',
+            'MontoNumeros' => 'required|numeric',
+            'MontosLetras' => 'required|string|max:255',
+            'BancoDestino' => 'required|integer',
+            'NombreReceptor' => 'required|string|max:255',
+            'CuentaBancoReceptor' => 'required|string|max:255',
+            'MontoNumerosDestino' => 'required|numeric',
+            'MontosLetrasDestino' => 'required|string|max:255',
+            'TipoTransferencia' => 'required|string|max:255',
+            'ConceptoTransferencia' => 'required|string|max:255',
+            'CorreoReceptor' => 'nullable|string|max:255',
+            'TelefonoReceptor' => 'nullable|string|max:255',
+            'DireccionReceptor' => 'nullable|string|max:255',
+            'Pais' => 'nullable|string|max:255',
+            'ComisionesBancarias' => 'nullable|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Encontrar la transferencia
+        $transferencia = Transferencia::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // Actualizar la transferencia
+        $transferencia->update($request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('tranferencias.index')->with('success', 'Transferencia actualizada correctamente.');
     }
 }

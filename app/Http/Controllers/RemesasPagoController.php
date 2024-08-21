@@ -2,64 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\RemesaPago;
+use App\Models\RemesaPagoDetalle;
 use Illuminate\Http\Request;
 
 class RemesasPagoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('remesasPagos.index');
+        // Obtener todas las remesas con sus detalles
+        $remesas = RemesaPago::with('detalle')->get();
+        return view('remesasPagos.index', compact('remesas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los datos de entrada
+        $request->validate([
+            'bancoPagador' => 'required|string|max:100',
+            'cuentaCliente' => 'required|string|max:100',
+            'FechaProcesamiento' => 'required|date',
+            'FechaPago' => 'required|date',
+            'TipoCuentaPagadora' => 'required|string|max:255',
+            'TipoPago' => 'required|string|max:255',
+            'CorreoBeneficiario' => 'required|string|max:255',
+            'ConceptoPago' => 'required|string|max:255',
+            'MontoPagar' => 'required|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
+
+        // Crear el detalle de la remesa de pago
+        $detalle = RemesaPagoDetalle::create($request->only([
+            'FechaProcesamiento',
+            'FechaPago',
+            'TipoCuentaPagadora',
+            'TipoPago',
+            'CorreoBeneficiario',
+            'ConceptoPago',
+            'MontoPagar',
+            'NombreAutoriza'
+        ]));
+
+        // Crear la remesa de pago y asociarla al detalle
+        RemesaPago::create([
+            'bancoPagador' => $request->input('bancoPagador'),
+            'cuentaCliente' => $request->input('cuentaCliente'),
+            'pagoDetalle' => $detalle->id,
+        ]);
+
+        return redirect()->route('remesasPagos.index')->with('success', 'Remesa de Pago creada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validar los datos de entrada
+        $request->validate([
+            'bancoPagador' => 'required|string|max:100',
+            'cuentaCliente' => 'required|string|max:100',
+            'FechaProcesamiento' => 'required|date',
+            'FechaPago' => 'required|date',
+            'TipoCuentaPagadora' => 'required|string|max:255',
+            'TipoPago' => 'required|string|max:255',
+            'CorreoBeneficiario' => 'required|string|max:255',
+            'ConceptoPago' => 'required|string|max:255',
+            'MontoPagar' => 'required|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Encontrar la remesa y su detalle
+        $remesa = RemesaPago::findOrFail($id);
+        $detalle = $remesa->detalle;
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // Actualizar los detalles
+        $detalle->update($request->only([
+            'FechaProcesamiento',
+            'FechaPago',
+            'TipoCuentaPagadora',
+            'TipoPago',
+            'CorreoBeneficiario',
+            'ConceptoPago',
+            'MontoPagar',
+            'NombreAutoriza'
+        ]));
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Actualizar la remesa
+        $remesa->update([
+            'bancoPagador' => $request->input('bancoPagador'),
+            'cuentaCliente' => $request->input('cuentaCliente'),
+        ]);
+
+        return redirect()->route('remesasPagos.index')->with('success', 'Remesa de Pago actualizada correctamente.');
     }
 }

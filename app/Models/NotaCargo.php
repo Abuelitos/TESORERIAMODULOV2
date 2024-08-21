@@ -5,28 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotaAbono extends Model
+class NotaCargo extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'Lugar', 
         'Fecha', 
-        'cliente', 
-        'ConceptoAbono', 
+        'cliente_dui', 
+        'ConceptoCargo', 
         'NumeroFactura', 
-        'FormaAbono', 
+        'FormaCobro', 
         'Comentarios', 
         'NombreAutoriza'
     ];
-    
-    protected $table = 'notasabono'; 
+
+    protected $table = 'notascargo'; // Asegúrate de que el nombre de la tabla sea correcto
     protected $primaryKey = 'ID';
 
     public $timestamps = false;
 
-    public function client()
+    public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente');
+        return $this->belongsTo(Cliente::class, 'cliente_dui', 'dui');
     }
 }

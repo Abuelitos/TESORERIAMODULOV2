@@ -1,288 +1,264 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-@include('layouts.navbars.auth.topnav', ['title' => 'Tables'])
+@include('layouts.navbars.auth.topnav', ['title' => 'Lista de Notas de Cargo'])
+
 <div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Lista de Notas de Cargos</h6>
+                    <h6>Lista de Notas de Cargo</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="row">
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-block bg-gradient-primary mb-3  ms-3"
-                                data-bs-toggle="modal" data-bs-target="#modal-default">Ingresos Notas de Cargos</button>
+                            <button type="button" class="btn btn-block bg-gradient-primary mb-3 ms-3"
+                                data-bs-toggle="modal" data-bs-target="#modal-default">Ingresar Nota de Cargo</button>
+
+                            <!-- Modal para ingresar una nueva Nota de Cargo -->
                             <div class="modal fade" id="modal-default" tabindex="-1" role="dialog"
                                 aria-labelledby="modal-default" aria-hidden="true">
-                                <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h6 class="modal-title" id="modal-title-default">Ingreso de Notas de Cargos</h6>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close">
+                                            <h6 class="modal-title" id="modal-title-default">Ingreso de Nota de Cargo</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span>
                                             </button>
                                         </div>
-                                        <form action="{{route('notasAbonos.store')}}" method="POST">
+                                        <form action="{{ route('notasCargos.store') }}" method="POST">
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Lugar</label>
-                                                    <input type="text" name="lugar" class="form-control" id="duiInput"
-                                                        placeholder="Lugar" maxlength="10">                                        
+                                                    <label for="lugarInput">Lugar</label>
+                                                    <input type="text" name="Lugar" class="form-control" id="lugarInput"
+                                                        placeholder="Lugar">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Fecha</label>
-                                                    <input type="date" name="Fecha" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Nombres">
+                                                    <label for="fechaInput">Fecha</label>
+                                                    <input type="date" name="Fecha" class="form-control" id="fechaInput"
+                                                        placeholder="Fecha">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Cliente</label>
-                                                    <!-- <input type="text" name="apellidos" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Apellidos"> -->
-                                                    <select class="form-select" name="cliente" aria-label="Default select example">
-                                                        <option selected>Seleccione un cliente</option>
-                                                        <option value="1">Edwin</option>
-                                                    </select>
+                                                    <label for="duiInput">DUI del Cliente</label>
+                                                    <input type="text" name="cliente_dui" class="form-control" id="duiInput"
+                                                        placeholder="Ingrese el DUI">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Concepto de Abono</label>
-                                                    <input type="text" class="form-control" name="cuentaBancoPagador"
-                                                        id="exampleFormControlInput1" placeholder="Cuenta de Banco">
+                                                    <label for="nombreClienteInput">Nombre del Cliente</label>
+                                                    <input type="text" class="form-control" id="nombreClienteInput"
+                                                        placeholder="Nombre del Cliente" readonly>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Numero de factura</label>
-                                                    <input type="number" name="direccion" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Direccion">
+                                                    <label for="conceptoInput">Concepto de Cobro</label>
+                                                    <input type="text" class="form-control" name="ConceptoCargo" id="conceptoInput"
+                                                        placeholder="Concepto de Cobro">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Forma de abono</label>
-                                                    <input type="text" name="telefono" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Celular">
+                                                    <label for="facturaInput">Número de Factura</label>
+                                                    <input type="text" name="NumeroFactura" class="form-control"
+                                                        id="facturaInput" placeholder="Número de Factura">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Comentarios</label>
-                                                    <input type="text" name="celular" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Celular">
+                                                    <label for="formaInput">Forma de Cobro</label>
+                                                    <input type="text" name="FormaCobro" class="form-control" id="formaInput"
+                                                        placeholder="Forma de Cobro">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlInput1">Quien Autoriza?</label>
-                                                    <input type="text" name="celular" class="form-control"
-                                                        id="exampleFormControlInput1" placeholder="Celular">
+                                                    <label for="comentariosInput">Comentarios</label>
+                                                    <input type="text" name="Comentarios" class="form-control"
+                                                        id="comentariosInput" placeholder="Comentarios">
                                                 </div>
-
+                                                <div class="mb-3">
+                                                    <label for="autorizaInput">Nombre de quien Autoriza</label>
+                                                    <input type="text" name="NombreAutoriza" class="form-control"
+                                                        id="autorizaInput" placeholder="Nombre de quien Autoriza">
+                                                </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit" class="btn bg-gradient-primary">Save
-                                                    changes</button>
-                                                <button type="button" class="btn btn-link  ml-auto"
-                                                    data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn bg-gradient-primary">Guardar cambios</button>
+                                                <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cerrar</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive ">
-                        <table class="table align-items-center mb-0">
+
+                        <!-- Tabla de Notas de Cargo -->
+                        <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Author</th>
-                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                            Function</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Status</th>
-                                        <th
-                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                            Employed</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lugar</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Cliente</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Fecha</th>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Concepto</th>
                                         <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($notasCargo as $nota)
                                     <tr>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user1">
-                                                </div>
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">John Michael</h6>
-                                                    <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
+                                                    <h6 class="mb-0 text-sm">{{ $nota->Lugar }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                            <p class="text-xs text-secondary mb-0">Organization</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $nota->cliente->Nombres }} {{ $nota->cliente->Apellidos }}</p>
+                                            <p class="text-xs text-secondary mb-0">{{ $nota->cliente_dui }}</p>
                                         </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
+                                        <td>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $nota->Fecha }}</span>
                                         </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
+                                        <td>
+                                            <span class="text-secondary text-xs font-weight-bold">{{ $nota->ConceptoCargo }}</span>
                                         </td>
                                         <td class="align-middle">
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
+                                                data-bs-toggle="modal" data-bs-target="#editNotaModal{{ $nota->ID }}">
+                                                Editar
+                                            </a>
+                                            |
+                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                                data-bs-toggle="modal" data-bs-target="#viewNotaModal{{ $nota->ID }}">
+                                                Ver
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-3.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user2">
+
+                                    <!-- Modal para Editar Nota de Cargo -->
+                                    <div class="modal fade" id="editNotaModal{{ $nota->ID }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="modal-default" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title" id="modal-title-default">Editar Nota de Cargo</h6>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
                                                 </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Alexa Liras</h6>
-                                                    <p class="text-xs text-secondary mb-0">alexa@creative-tim.com</p>
+                                                <form action="{{ route('notasCargos.update', $nota->ID) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="lugarInput{{ $nota->ID }}">Lugar</label>
+                                                            <input type="text" name="Lugar" class="form-control"
+                                                                id="lugarInput{{ $nota->ID }}" value="{{ $nota->Lugar }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="fechaInput{{ $nota->ID }}">Fecha</label>
+                                                            <input type="date" name="Fecha" class="form-control"
+                                                                id="fechaInput{{ $nota->ID }}" value="{{ $nota->Fecha }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="clienteSelect{{ $nota->ID }}">Cliente</label>
+                                                            <input type="text" name="cliente_dui" class="form-control"
+                                                                id="clienteSelect{{ $nota->ID }}" value="{{ $nota->cliente_dui }}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="conceptoInput{{ $nota->ID }}">Concepto de Cobro</label>
+                                                            <input type="text" name="ConceptoCargo" class="form-control"
+                                                                id="conceptoInput{{ $nota->ID }}" value="{{ $nota->ConceptoCargo }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="facturaInput{{ $nota->ID }}">Número de Factura</label>
+                                                            <input type="text" name="NumeroFactura" class="form-control"
+                                                                id="facturaInput{{ $nota->ID }}" value="{{ $nota->NumeroFactura }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="formaInput{{ $nota->ID }}">Forma de Cobro</label>
+                                                            <input type="text" name="FormaCobro" class="form-control"
+                                                                id="formaInput{{ $nota->ID }}" value="{{ $nota->FormaCobro }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="comentariosInput{{ $nota->ID }}">Comentarios</label>
+                                                            <input type="text" name="Comentarios" class="form-control"
+                                                                id="comentariosInput{{ $nota->ID }}" value="{{ $nota->Comentarios }}">
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="autorizaInput{{ $nota->ID }}">Nombre de quien Autoriza</label>
+                                                            <input type="text" name="NombreAutoriza" class="form-control"
+                                                                id="autorizaInput{{ $nota->ID }}" value="{{ $nota->NombreAutoriza }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn bg-gradient-primary">Guardar cambios</button>
+                                                        <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cerrar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal para Ver Nota de Cargo -->
+                                    <div class="modal fade" id="viewNotaModal{{ $nota->ID }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="modal-default" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h6 class="modal-title" id="modal-title-default">Ver Nota de Cargo</h6>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="viewLugar{{ $nota->ID }}">Lugar</label>
+                                                        <input type="text" class="form-control" id="viewLugar{{ $nota->ID }}"
+                                                            value="{{ $nota->Lugar }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewFecha{{ $nota->ID }}">Fecha</label>
+                                                        <input type="date" class="form-control" id="viewFecha{{ $nota->ID }}"
+                                                            value="{{ $nota->Fecha }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewCliente{{ $nota->ID }}">Cliente</label>
+                                                        <input type="text" class="form-control" id="viewCliente{{ $nota->ID }}"
+                                                            value="{{ $nota->cliente->Nombres }} {{ $nota->cliente->Apellidos }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewConcepto{{ $nota->ID }}">Concepto de Cobro</label>
+                                                        <input type="text" class="form-control" id="viewConcepto{{ $nota->ID }}"
+                                                            value="{{ $nota->ConceptoCobro }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewFactura{{ $nota->ID }}">Número de Factura</label>
+                                                        <input type="text" class="form-control" id="viewFactura{{ $nota->ID }}"
+                                                            value="{{ $nota->NumeroFactura }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewForma{{ $nota->ID }}">Forma de Cobro</label>
+                                                        <input type="text" class="form-control" id="viewForma{{ $nota->ID }}"
+                                                            value="{{ $nota->FormaCobro }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewComentarios{{ $nota->ID }}">Comentarios</label>
+                                                        <input type="text" class="form-control" id="viewComentarios{{ $nota->ID }}"
+                                                            value="{{ $nota->Comentarios }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="viewAutoriza{{ $nota->ID }}">Nombre de quien Autoriza</label>
+                                                        <input type="text" class="form-control" id="viewAutoriza{{ $nota->ID }}"
+                                                            value="{{ $nota->NombreAutoriza }}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cerrar</button>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                            <p class="text-xs text-secondary mb-0">Developer</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">11/01/19</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-4.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user3">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Laurent Perrier</h6>
-                                                    <p class="text-xs text-secondary mb-0">laurent@creative-tim.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Executive</p>
-                                            <p class="text-xs text-secondary mb-0">Projects</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">19/09/17</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-3.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user4">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Michael Levi</h6>
-                                                    <p class="text-xs text-secondary mb-0">michael@creative-tim.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Programator</p>
-                                            <p class="text-xs text-secondary mb-0">Developer</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-success">Online</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">24/12/08</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-2.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user5">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Richard Gran</h6>
-                                                    <p class="text-xs text-secondary mb-0">richard@creative-tim.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Manager</p>
-                                            <p class="text-xs text-secondary mb-0">Executive</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">04/10/21</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div>
-                                                    <img src="/img/team-4.jpg" class="avatar avatar-sm me-3"
-                                                        alt="user6">
-                                                </div>
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">Miriam Eric</h6>
-                                                    <p class="text-xs text-secondary mb-0">miriam@creative-tim.com</p>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">Programtor</p>
-                                            <p class="text-xs text-secondary mb-0">Developer</p>
-                                        </td>
-                                        <td class="align-middle text-center text-sm">
-                                            <span class="badge badge-sm bg-gradient-secondary">Offline</span>
-                                        </td>
-                                        <td class="align-middle text-center">
-                                            <span class="text-secondary text-xs font-weight-bold">14/09/20</span>
-                                        </td>
-                                        <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
-                                                data-toggle="tooltip" data-original-title="Edit user">
-                                                Edit
-                                            </a>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </div>
+
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -290,5 +266,31 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<script>
+    document.getElementById('duiInput').addEventListener('input', function() {
+        let dui = this.value;
+        if (dui.length === 10) {  // Asumiendo que el DUI tiene exactamente 10 caracteres
+            fetch(`/clientes/buscar?dui=${dui}`)  // Aquí se envía el DUI como un parámetro en la URL
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
+                    } else {
+                        document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
+                });
+        } else {
+            document.getElementById('nombreClienteInput').value = '';
+        }
+    });
 
-        @endsection
+</script>
+@endsection
+
+

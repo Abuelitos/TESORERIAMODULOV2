@@ -2,64 +2,95 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Models\RemesasCobro;
+use App\Models\RemesaCobroDetalle;
 use Illuminate\Http\Request;
 
 class RemesasCobroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('remesasCobros.index');
+        // Obtener todas las remesas con sus detalles
+        $remesas = RemesasCobro::with('detalle')->get();
+        return view('remesasCobros.index', compact('remesas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los datos de entrada
+        $request->validate([
+            'bancoColector' => 'required|string|max:100',
+            'cuentaCliente' => 'required|string|max:100',
+            'FechaProcesamiento' => 'required|date',
+            'FechaCobro' => 'required|date',
+            'TipoCuentaColectora' => 'required|string|max:255',
+            'TipoCobro' => 'required|string|max:255',
+            'CorreoCliente' => 'required|string|max:255',
+            'ConceptoCobro' => 'required|string|max:255',
+            'MontoCobrar' => 'required|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
+
+        // Crear el detalle de la remesa de cobro
+        $detalle = RemesaCobroDetalle::create($request->only([
+            'FechaProcesamiento',
+            'FechaCobro',
+            'TipoCuentaColectora',
+            'TipoCobro',
+            'CorreoCliente',
+            'ConceptoCobro',
+            'MontoCobrar',
+            'NombreAutoriza'
+        ]));
+
+        // Crear la remesa de cobro y asociarla al detalle
+        RemesasCobro::create([
+            'bancoColector' => $request->input('bancoColector'),
+            'cuentaCliente' => $request->input('cuentaCliente'),
+            'idremesascobrodetalle' => $detalle->id,
+        ]);
+
+        return redirect()->route('remesasCobros.index')->with('success', 'Remesa de Cobro creada correctamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validar los datos de entrada
+        $request->validate([
+            'bancoColector' => 'required|string|max:100',
+            'cuentaCliente' => 'required|string|max:100',
+            'FechaProcesamiento' => 'required|date',
+            'FechaCobro' => 'required|date',
+            'TipoCuentaColectora' => 'required|string|max:255',
+            'TipoCobro' => 'required|string|max:255',
+            'CorreoCliente' => 'required|string|max:255',
+            'ConceptoCobro' => 'required|string|max:255',
+            'MontoCobrar' => 'required|numeric',
+            'NombreAutoriza' => 'required|string|max:255',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        // Encontrar la remesa y su detalle
+        $remesa = RemesasCobro::findOrFail($id);
+        $detalle = $remesa->detalle;
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        // Actualizar los detalles
+        $detalle->update($request->only([
+            'FechaProcesamiento',
+            'FechaCobro',
+            'TipoCuentaColectora',
+            'TipoCobro',
+            'CorreoCliente',
+            'ConceptoCobro',
+            'MontoCobrar',
+            'NombreAutoriza'
+        ]));
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Actualizar la remesa
+        $remesa->update([
+            'bancoColector' => $request->input('bancoColector'),
+            'cuentaCliente' => $request->input('cuentaCliente'),
+        ]);
+
+        return redirect()->route('remesasCobros.index')->with('success', 'Remesa de Cobro actualizada correctamente.');
     }
 }

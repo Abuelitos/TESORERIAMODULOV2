@@ -13,10 +13,17 @@ class NotasAbonoController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $notasAbono = NotaAbono::with('cliente')->get();
-        return view('notasAbonos.index', compact('notasAbono'));
-    }
+{
+    $notasAbono = NotaAbono::with('client')->get();
+    foreach ($notasAbono as $nota) {
+        if (!$nota->cliente) {
+            dd("La relación cliente no está cargada para la nota con ID " . $nota->ID);
+        }
+    }        
+    return view('notasAbonos.index', compact('notasAbono'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -70,7 +70,7 @@ class ClienteController extends Controller
 
     public function buscarPorDui(Request $request)
     {
-        $dui = $request->query('dui');
+        $dui = $request->query('dui');  // Aquí se obtiene el DUI desde la consulta en la URL
         $cliente = Cliente::where('dui', $dui)->first();
 
         if ($cliente) {
@@ -79,5 +79,6 @@ class ClienteController extends Controller
             return response()->json(['success' => false, 'message' => 'Cliente no encontrado']);
         }
     }
+
 
 }

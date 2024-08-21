@@ -18,96 +18,75 @@
 
                             <!-- Modal para ingresar una nueva Nota de Abono -->
                             <div class="modal fade" id="modal-default" tabindex="-1" role="dialog"
-                                aria-labelledby="modal-default" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h6 class="modal-title" id="modal-title-default">Ingreso de Nota de Abono</h6>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">×</span>
-                                            </button>
-                                        </div>
-                                        <form action="{{ route('notasAbonos.store') }}" method="POST">
-                                            @csrf
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label for="lugarInput">Lugar</label>
-                                                    <input type="text" name="Lugar" class="form-control" id="lugarInput"
-                                                        placeholder="Lugar">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="fechaInput">Fecha</label>
-                                                    <input type="date" name="Fecha" class="form-control" id="fechaInput"
-                                                        placeholder="Fecha">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="duiInput">DUI del Cliente</label>
-                                                    <input type="text" name="cliente" class="form-control" id="duiInput"
-                                                        placeholder="Ingrese el DUI">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="nombreClienteInput">Nombre del Cliente</label>
-                                                    <input type="text" class="form-control" id="nombreClienteInput"
-                                                        placeholder="Nombre del Cliente" readonly>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="conceptoInput">Concepto de Abono</label>
-                                                    <input type="text" class="form-control" name="ConceptoAbono" id="conceptoInput"
-                                                        placeholder="Concepto de Abono">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="facturaInput">Número de Factura</label>
-                                                    <input type="text" name="NumeroFactura" class="form-control"
-                                                        id="facturaInput" placeholder="Número de Factura">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="formaInput">Forma de Abono</label>
-                                                    <input type="text" name="FormaAbono" class="form-control" id="formaInput"
-                                                        placeholder="Forma de Abono">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="comentariosInput">Comentarios</label>
-                                                    <input type="text" name="Comentarios" class="form-control"
-                                                        id="comentariosInput" placeholder="Comentarios">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="autorizaInput">Nombre de quien Autoriza</label>
-                                                    <input type="text" name="NombreAutoriza" class="form-control"
-                                                        id="autorizaInput" placeholder="Nombre de quien Autoriza">
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn bg-gradient-primary">Guardar cambios</button>
-                                                <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cerrar</button>
-                                            </div>
-                                        </form>
+                            aria-labelledby="modal-default" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h6 class="modal-title" id="modal-title-default">Ingreso de Nota de Abono</h6>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
                                     </div>
+                                    <form action="{{ route('notasAbonos.store') }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="lugarInput">Lugar</label>
+                                                <input type="text" name="Lugar" class="form-control" id="lugarInput"
+                                                    placeholder="Lugar">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="fechaInput">Fecha</label>
+                                                <input type="date" name="Fecha" class="form-control" id="fechaInput"
+                                                    placeholder="Fecha">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="duiInput">DUI del Cliente</label>
+                                                <input type="text" name="cliente" class="form-control" id="duiInput"
+                                                    placeholder="Ingrese el DUI">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nombreClienteInput">Nombre del Cliente</label>
+                                                <input type="text" class="form-control" id="nombreClienteInput"
+                                                    placeholder="Nombre del Cliente" readonly>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="conceptoInput">Concepto de Abono</label>
+                                                <input type="text" class="form-control" name="ConceptoAbono" id="conceptoInput"
+                                                    placeholder="Concepto de Abono">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="facturaInput">Número de Factura</label>
+                                                <input type="text" name="NumeroFactura" class="form-control"
+                                                    id="facturaInput" placeholder="Número de Factura">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="formaInput">Forma de Abono</label>
+                                                <input type="text" name="FormaAbono" class="form-control" id="formaInput"
+                                                    placeholder="Forma de Abono">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="comentariosInput">Comentarios</label>
+                                                <input type="text" name="Comentarios" class="form-control"
+                                                    id="comentariosInput" placeholder="Comentarios">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="autorizaInput">Nombre de quien Autoriza</label>
+                                                <input type="text" name="NombreAutoriza" class="form-control"
+                                                    id="autorizaInput" placeholder="Nombre de quien Autoriza">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn bg-gradient-primary">Guardar cambios</button>
+                                            <button type="button" class="btn btn-link ml-auto" data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-
-                            <!-- JavaScript para buscar cliente por DUI -->
-                            <script>
-                            document.getElementById('duiInput').addEventListener('input', function() {
-                                let dui = this.value;
-                                if (dui.length === 10) { // Asumiendo que el DUI tiene 10 caracteres
-                                    fetch(`/clientes/buscar?dui=${dui}`)
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.success) {
-                                                document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
-                                            } else {
-                                                document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
-                                            }
-                                        });
-                                } else {
-                                    document.getElementById('nombreClienteInput').value = '';
-                                }
-                            });
-                            </script>
-
                         </div>
-
+                        
+                        </div>
                         <!-- Tabla de Notas de Abono -->
                         <div class="table-responsive">
                             <table class="table align-items-center mb-0">
@@ -130,10 +109,14 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            <p class="text-xs font-weight-bold mb-0">{{ $nota->cliente->nombre }}</p>
-                                            <p class="text-xs text-secondary mb-0">{{ $nota->cliente->dui }}</p>
-                                        </td>
+                                        <td>                                          
+                                            @if($nota->cliente)
+                                                <p class="text-xs font-weight-bold mb-0">{{ $nota->client->Nombres }} {{ $nota->client->Apellidos }}</p>
+                                                <p class="text-xs text-secondary mb-0">{{ $nota->client->dui }}</p>
+                                            @else
+                                                <p class="text-xs text-secondary mb-0">Cliente no encontrado</p>
+                                            @endif                                         
+                                        </td>                                        
                                         <td>
                                             <span class="text-secondary text-xs font-weight-bold">{{ $nota->Fecha }}</span>
                                         </td>
@@ -178,17 +161,7 @@
                                                             <label for="fechaInput{{ $nota->ID }}">Fecha</label>
                                                             <input type="date" name="Fecha" class="form-control"
                                                                 id="fechaInput{{ $nota->ID }}" value="{{ $nota->Fecha }}">
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="clienteSelect{{ $nota->ID }}">Cliente</label>
-                                                            <select class="form-select" name="cliente" id="clienteSelect{{ $nota->ID }}">
-                                                                @foreach($clientes as $cliente)
-                                                                <option value="{{ $cliente->dui }}" {{ $nota->cliente == $cliente->dui ? 'selected' : '' }}>
-                                                                    {{ $cliente->nombre }}
-                                                                </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
+                                                        </div>                                                        
                                                         <div class="mb-3">
                                                             <label for="conceptoInput{{ $nota->ID }}">Concepto de Abono</label>
                                                             <input type="text" name="ConceptoAbono" class="form-control"
@@ -250,7 +223,7 @@
                                                     <div class="mb-3">
                                                         <label for="viewCliente{{ $nota->ID }}">Cliente</label>
                                                         <input type="text" class="form-control" id="viewCliente{{ $nota->ID }}"
-                                                            value="{{ $nota->cliente->nombre }}" readonly>
+                                                            value="{{ $nota->client->Nombres }} {{$nota->client->Apellidos}}" readonly>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="viewConcepto{{ $nota->ID }}">Concepto de Abono</label>
@@ -295,6 +268,29 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('duiInput').addEventListener('input', function() {
+        let dui = this.value;
+        if (dui.length === 10) {  // Asumiendo que el DUI tiene exactamente 10 caracteres
+            fetch(`/clientes/buscar?dui=${dui}`)  // Aquí se envía el DUI como un parámetro en la URL
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
+                    } else {
+                        document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
+                });
+        } else {
+            document.getElementById('nombreClienteInput').value = '';
+        }
+    });
 
+</script>
+    
     
 @endsection

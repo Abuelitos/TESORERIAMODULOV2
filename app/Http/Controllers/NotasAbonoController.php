@@ -80,19 +80,27 @@ class NotasAbonoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'Lugar' => 'required|string|max:255',
-            'Fecha' => 'required|date',
-            'cliente' => 'required|string|max:10', // Asume que el campo cliente es un string que almacena el DUI
-            'ConceptoAbono' => 'required|string|max:255',
-            'NumeroFactura' => 'required|string|max:255',
-            'FormaAbono' => 'required|string|max:255',
-            'Comentarios' => 'nullable|string|max:255',
-            'NombreAutoriza' => 'required|string|max:255',
-        ]);
+        // $request->validate([
+        //     'Lugar' => 'required|string|max:255',
+        //     'Fecha' => 'required|date',
+        //     'cliente' => 'required|string|max:10', // Asume que el campo cliente es un string que almacena el DUI
+        //     'ConceptoAbono' => 'required|string|max:255',
+        //     'NumeroFactura' => 'required|string|max:255',
+        //     'FormaAbono' => 'required|string|max:255',
+        //     'Comentarios' => 'nullable|string|max:255',
+        //     'NombreAutoriza' => 'required|string|max:255',
+        // ]);
 
         $notaAbono = NotaAbono::findOrFail($id);
-        $notaAbono->update($request->all());
+        $notaAbono -> Lugar = $request -> Lugar;
+        $notaAbono -> Fecha = $request -> Fecha;
+        $notaAbono -> ConceptoAbono = $request -> ConceptoAbono;
+        $notaAbono -> NumeroFactura = $request -> NumeroFactura;
+        $notaAbono -> FormaAbono = $request -> FormaAbono;
+        $notaAbono -> Comentarios = $request -> Comentarios;
+        $notaAbono -> NombreAutoriza = $request -> NombreAutoriza;
+        $notaAbono -> save();
+        // $notaAbono->update($request->all());
 
         return redirect()->route('notasAbonos.index')->with('success', 'Nota de abono actualizada correctamente.');
     }

@@ -16,7 +16,8 @@ class Cheque extends Model
         'CuentaBancoPagador', 
         'MontoNumeros', 
         'MontosLetras', 
-        'Firmas'
+        'Firmas',
+        'NumeroCheque'
     ];
     
     protected $table = 'cheques';

@@ -33,6 +33,11 @@
                                             @csrf
                                             <div class="modal-body">
                                                 <div class="mb-3">
+                                                    <label for="lugarCheque">Numero de cheque</label>
+                                                    <input type="text" name="NumeroCheque" class="form-control" id="numeroCheque"
+                                                        placeholder="NumeroCheque">
+                                                </div>
+                                                <div class="mb-3">
                                                     <label for="lugarCheque">Lugar</label>
                                                     <input type="text" name="Lugar" class="form-control" id="lugarCheque"
                                                         placeholder="Lugar">
@@ -92,6 +97,7 @@
                             <table class="table align-items-center">
                                 <thead>
                                     <tr>
+                                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">NUmero de cheque</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Lugar</th>
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Banco Pagador</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Monto</th>
@@ -102,6 +108,13 @@
                                 <tbody>
                                     @foreach ($cheques as $cheque)
                                     <tr>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $cheque->NumeroCheque }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
@@ -151,6 +164,12 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label for="NumeroCheque{{ $cheque->ID }}">Numero de Cheque</label>
+                                                            <input type="text" name="NumeroCheque" class="form-control"
+                                                                id="NumeroCheque{{ $cheque->ID }}" value="{{ $cheque->NumeroCheque }}"
+                                                                placeholder="Numero de Cheque" readonly>
+                                                        </div>
                                                         <div class="mb-3">
                                                             <label for="lugarCheque{{ $cheque->ID }}">Lugar</label>
                                                             <input type="text" name="Lugar" class="form-control"
@@ -223,6 +242,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="viewNumeroCheque{{ $cheque->ID }}">Numero de Cheque</label>
+                                                        <input type="text" class="form-control" id="viewNumeroCheque{{ $cheque->ID }}"
+                                                            value="{{ $cheque->NumeroCheque }}" readonly>
+                                                    </div>
                                                     <div class="mb-3">
                                                         <label for="viewLugar{{ $cheque->ID }}">Lugar</label>
                                                         <input type="text" class="form-control" id="viewLugar{{ $cheque->ID }}"

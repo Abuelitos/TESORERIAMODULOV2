@@ -36,6 +36,7 @@ class ChequeController extends Controller
        // dd($request->all());        
 
         $cheque = new Cheque;
+        $cheque->NumeroCheque = $request->input('NumeroCheque');
         $cheque->Lugar = $request->input('Lugar');
         $cheque->Fecha = $request->input('Fecha');
         $cheque->BancoPagador = $request->input('BancoPagador');
@@ -78,20 +79,32 @@ class ChequeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validar los datos recibidos
-        $request->validate([
-            'Lugar' => 'required|string|max:255',
-            'Fecha' => 'required|date',
-            'BancoPagador' => 'required|integer',
-            'CuentaBancoPagador' => 'required|string|max:255',
-            'MontoNumeros' => 'required|numeric',
-            'MontosLetras' => 'required|string|max:255',
-            'Firmas' => 'nullable|boolean',
-        ]);
-    
-        // Encontrar el cheque por su ID y actualizarlo
+
         $cheque = Cheque::findOrFail($id);
-        $cheque->update($request->all());  // Guardar los cambios en la base de datos
+
+        $cheque->NumeroCheque = $request->input('NumeroCheque');
+        $cheque->Lugar = $request->input('Lugar');
+        $cheque->Fecha = $request->input('Fecha');
+        $cheque->BancoPagador = $request->input('BancoPagador');
+        $cheque->CuentaBancoPagador = $request->input('CuentaBancoPagador');
+        $cheque->MontoNumeros = $request->input('MontoNumeros');
+        $cheque->MontosLetras = $request->input('MontosLetras');
+        $cheque->Firmas = $request->input('Firmas') ? 1 : 0;
+        $cheque->save();
+        // Validar los datos recibidos
+        // $request->validate([
+        //     'Lugar' => 'required|string|max:255',
+        //     'Fecha' => 'required|date',
+        //     'BancoPagador' => 'required|integer',
+        //     'CuentaBancoPagador' => 'required|string|max:255',
+        //     'MontoNumeros' => 'required|numeric',
+        //     'MontosLetras' => 'required|string|max:255',
+        //     'Firmas' => 'nullable|boolean',
+        // ]);
+    
+        // // Encontrar el cheque por su ID y actualizarlo
+        // $cheque = Cheque::findOrFail($id);
+        // $cheque->update($request->all());  // Guardar los cambios en la base de datos
     
         // Redirigir con un mensaje de éxito
         return redirect()->route('cheques.index')->with('success', 'Cheque actualizado correctamente.');

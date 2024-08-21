@@ -158,6 +158,11 @@
                                                                 id="lugarInput{{ $nota->ID }}" value="{{ $nota->Lugar }}">
                                                         </div>
                                                         <div class="mb-3">
+                                                            <label for="lugarInput{{ $nota->ID }}">Cliente</label>
+                                                            <input type="text" name="Lugar" class="form-control"
+                                                                id="lugarInput{{ $nota->ID }}" value="{{ $nota->client->Nombres }} {{ $nota->client->Apellidos}}" readonly>
+                                                        </div>
+                                                        <div class="mb-3">
                                                             <label for="fechaInput{{ $nota->ID }}">Fecha</label>
                                                             <input type="date" name="Fecha" class="form-control"
                                                                 id="fechaInput{{ $nota->ID }}" value="{{ $nota->Fecha }}">

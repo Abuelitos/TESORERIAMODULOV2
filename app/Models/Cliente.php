@@ -23,5 +23,10 @@ class Cliente extends Model
 
     protected $id = 'dui';
 
+    public function notasAbono()
+    {
+        return $this->hasMany(NotaAbono::class, 'cliente', 'dui');
+    }
+
     
 }

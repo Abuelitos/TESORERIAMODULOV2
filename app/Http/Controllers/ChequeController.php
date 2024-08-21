@@ -55,8 +55,13 @@ class ChequeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Obtener el cheque por su ID con la relación del banco
+        $cheque = Cheque::with('banco')->findOrFail($id);
+    
+        // Retornar la respuesta en formato JSON
+        return response()->json($cheque);
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -71,8 +76,36 @@ class ChequeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // Validar los datos recibidos
+        $request->validate([
+            'Lugar' => 'required|string|max:255',
+            'Fecha' => 'required|date',
+            'BancoPagador' => 'required|integer',
+            'CuentaBancoPagador' => 'required|string|max:255',
+            'MontoNumeros' => 'required|numeric',
+            'MontosLetras' => 'required|string|max:255',
+            'Firmas' => 'nullable|boolean',
+        ]);
+
+        // Encontrar el cheque por su ID y actualizarlo directamente
+        $cheque = Cheque::findOrFail($id);
+
+        $cheque->Lugar = $request->input('Lugar');
+        $cheque->Fecha = $request->input('Fecha');
+        $cheque->BancoPagador = $request->input('BancoPagador');
+        $cheque->CuentaBancoPagador = $request->input('CuentaBancoPagador');
+        $cheque->MontoNumeros = $request->input('MontoNumeros');
+        $cheque->MontosLetras = $request->input('MontosLetras');
+        $cheque->Firmas = $request->input('Firmas', false);
+
+        $cheque->save();  // Guardar los cambios en la base de datos
+
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('cheques.index')->with('success', 'Cheque actualizado correctamente.');
     }
+
+
+    
 
     /**
      * Remove the specified resource from storage.

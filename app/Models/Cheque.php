@@ -20,9 +20,7 @@ class Cheque extends Model
     ];
     
     protected $table = 'cheques';
-    protected $guarded = [
-        'ID'
-    ];
+    protected $primaryKey = 'ID';
 
     public function banco()
     {

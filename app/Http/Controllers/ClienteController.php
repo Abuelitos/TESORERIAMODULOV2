@@ -67,4 +67,17 @@ class ClienteController extends Controller
         $cliente->delete();
         return response()->json(null, 204);
     }
+
+    public function buscarPorDui(Request $request)
+    {
+        $dui = $request->query('dui');
+        $cliente = Cliente::where('dui', $dui)->first();
+
+        if ($cliente) {
+            return response()->json(['success' => true, 'cliente' => $cliente]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Cliente no encontrado']);
+        }
+    }
+
 }

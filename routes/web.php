@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('remesasCobros', RemesasCobroController::class);
 	Route::resource('cheques', ChequeController::class);
 	Route::get('/clientes/{cliente}/cambiar-estado', [ClienteController::class, 'cambiarEstado'])->name('cliente.cambiarEstado');
+	Route::get('/clientes/buscar', [ClienteController::class, 'buscarPorDui'])->name('clientes.buscarPorDui');
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');

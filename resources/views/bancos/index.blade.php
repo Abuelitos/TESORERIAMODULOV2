@@ -110,6 +110,7 @@
                                                 data-original-title="Edit user">
                                                 Editar
                                             </a>
+                                            
                                         </td>
                                     </tr>
                                     @endforeach

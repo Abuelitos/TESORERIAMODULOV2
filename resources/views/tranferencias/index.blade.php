@@ -153,11 +153,11 @@
                                         <td>{{ $transferencia->bancoDestino->nombre }}</td>
                                         <td>{{ $transferencia->MontoNumerosDestino }}</td>
                                         <td class="align-middle">
-                                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
+                                            {{-- <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
                                                 data-bs-toggle="modal" data-bs-target="#editTransferenciaModal{{ $transferencia->ID }}">
                                                 Editar
-                                            </a>
-                                            |
+                                            </a> --}}
+                                            {{-- | --}}
                                             <a href="javascript:;" class="text-secondary font-weight-bold text-xs"
                                                 data-bs-toggle="modal" data-bs-target="#viewTransferenciaModal{{ $transferencia->ID }}">
                                                 Ver

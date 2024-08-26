@@ -50,7 +50,7 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-money-coins text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Notas de Abonos</span>
+                    <span class="nav-link-text ms-1">Notas de Ingresos</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -58,7 +58,7 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-wallet text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Notas de Cargos</span>
+                    <span class="nav-link-text ms-1">Notas de Egresos</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -66,7 +66,7 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-bag-17 text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Remesas Cobros</span>
+                    <span class="nav-link-text ms-1">Remesas Ingresos</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -74,7 +74,7 @@
                     <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-send text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Remesas Pagos</span>
+                    <span class="nav-link-text ms-1">Remesas Egresos</span>
                 </a>
             </li>
             <li class="nav-item">

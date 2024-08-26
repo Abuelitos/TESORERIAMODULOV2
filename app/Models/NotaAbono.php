@@ -29,4 +29,9 @@ class NotaAbono extends Model
     {
         return $this->belongsTo(Cliente::class, 'cliente');
     }
+
+    public function TipoTransferencia()
+    {
+        return $this->belongsTo(TipoTransferencia::class, 'FormaCobro', 'ID');
+    }
 }

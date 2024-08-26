@@ -25,10 +25,16 @@ class Cliente extends Model
         'Direccion',
         'Telefono',
         'Celular',
+        'TipoPersonaId',
     ];
 
     public function notasAbono()
     {
         return $this->hasMany(NotaAbono::class, 'cliente');
+    }
+
+    public function tipoPersona()
+    {
+        return $this->belongsTo(TipoPersona::class, 'TipoPersonaId');
     }
 }

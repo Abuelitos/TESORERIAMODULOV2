@@ -275,25 +275,33 @@
 </div>
 <script>
     document.getElementById('duiInput').addEventListener('input', function() {
-        let dui = this.value;
-        if (dui.length === 10) {  // Asumiendo que el DUI tiene exactamente 10 caracteres
-            fetch(`/clientes/buscar?dui=${dui}`)  // Aquí se envía el DUI como un parámetro en la URL
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
-                    } else {
-                        document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
-                });
-        } else {
-            document.getElementById('nombreClienteInput').value = '';
-        }
-    });
+    let dui = this.value.trim();
+    
+    // Asegurándote de que el DUI tiene un formato de 10 caracteres (XXXXXXX-X)
+    if (/^\d{8}-\d{1}$/.test(dui)) {
+        // Realiza la petición a la ruta definida para buscar el cliente por DUI
+        fetch(`/clientes/buscar?dui=${dui}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Si el cliente es encontrado, se rellena el campo del nombre
+                    document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
+                } else {
+                    // Si no se encuentra el cliente, se muestra un mensaje en el campo de nombre
+                    document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
+                }
+            })
+            .catch(error => {
+                // Manejo de errores, si hay un problema en la búsqueda
+                console.error('Error:', error);
+                document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
+            });
+    } else {
+        // Si el DUI no tiene el formato esperado, limpia el campo de nombre
+        document.getElementById('nombreClienteInput').value = '';
+    }
+});
+
 
 </script>
     

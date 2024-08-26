@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Exception;
 use Illuminate\Http\Request;
+use App\Models\TipoPersona;
 
 class ClienteController extends Controller
 {
     public function index()
     {
         $clientes = Cliente::all();
-        return view('clientes.index', compact('clientes'));
+        $tipos = TipoPersona::all();
+        return view('clientes.index', compact('clientes', 'tipos'));
     }
 
     public function store(Request $request)
@@ -28,12 +30,13 @@ class ClienteController extends Controller
 
         $cliente = new Cliente();
         $cliente->dui = $dui;
-        $cliente->Nombres = $request->input('nombres');
-        $cliente->Apellidos = $request->input('apellidos');
-        $cliente->Telefono = $request->input('telefono');
-        $cliente->Direccion = $request->input('direccion');
-        $cliente->Celular = $request->input('celular');
-        $cliente->Fecha_nacimiento = $request->input('fecha_nacimiento');
+        $cliente->Nombres = $request->input('Nombres');
+        $cliente->Apellidos = $request->input('Apellidos');
+        $cliente->Telefono = $request->input('Telefono');
+        $cliente->Direccion = $request->input('Direccion');
+        $cliente->Celular = $request->input('Celular');
+        $cliente->tipoPersonaId = $request->input('TipoPersonaId');
+        $cliente->Fecha_nacimiento = $request->input('Fecha_nacimiento');
         $cliente->save();
 
         session()->flash('message', 'Cliente guardado con éxito!');
@@ -58,7 +61,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::findOrFail($id);
         $cliente->update($request->all());
-        return response()->json($cliente, 200);
+        return redirect()->route('clientes.index');
     }
 
     public function destroy($id)

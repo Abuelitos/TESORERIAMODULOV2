@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\NotaAbono;
 use App\Models\Cliente;
+use App\Models\TipoTransferencia;
 
 class NotasAbonoController extends Controller
 {
@@ -13,15 +14,29 @@ class NotasAbonoController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $notasAbono = NotaAbono::with('client')->get();
-    foreach ($notasAbono as $nota) {
-        if (!$nota->cliente) {
-            dd("La relación cliente no está cargada para la nota con ID " . $nota->ID);
+    {
+        $notasAbono = NotaAbono::with('client')->get();
+        foreach ($notasAbono as $nota) {
+            if (!$nota->cliente) {
+                dd("La relación cliente no está cargada para la nota con ID " . $nota->ID);
+            }
         }
-    }        
-    return view('notasAbonos.index', compact('notasAbono'));
-}
+        
+        $tiposTransferencia = TipoTransferencia::all();
+        return view('notasAbonos.index', compact('notasAbono', 'tiposTransferencia'));
+    }
+
+    public function buscarPorDui(Request $request)
+    {
+        $dui = $request->query('dui');  // Aquí se obtiene el DUI desde la consulta en la URL
+        $cliente = Cliente::where('dui', $dui)->first();
+
+        if ($cliente) {
+            return response()->json(['success' => true, 'cliente' => $cliente]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Cliente no encontrado']);
+        }
+    }
 
 
 

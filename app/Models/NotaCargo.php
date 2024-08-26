@@ -29,4 +29,9 @@ class NotaCargo extends Model
     {
         return $this->belongsTo(Cliente::class, 'cliente_dui', 'dui');
     }
+
+    public function TipoTransferencia()
+    {
+        return $this->belongsTo(TipoTransferencia::class, 'FormaCobro', 'ID');
+    }
 }

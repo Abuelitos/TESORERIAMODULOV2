@@ -63,8 +63,12 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="formaInput">Forma de Abono</label>
-                                                <input type="text" name="FormaAbono" class="form-control" id="formaInput"
-                                                    placeholder="Forma de Abono">
+                                                <select class="form-select" name="FormaAbono" aria-label="Seleccione un Tipo de Persona" id="FormaAbono">
+                                                    <option selected disabled>Seleccione un tipo de abono</option>
+                                                    @foreach($tiposTransferencia as $t)
+                                                        <option value="{{ $t->ID }}">{{ $t->Descripcion }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="comentariosInput">Comentarios</label>
@@ -179,8 +183,12 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="formaInput{{ $nota->ID }}">Forma de Abono</label>
-                                                            <input type="text" name="FormaAbono" class="form-control"
-                                                                id="formaInput{{ $nota->ID }}" value="{{ $nota->FormaAbono }}">
+                                                            <select class="form-select" name="FormaAbono" aria-label="Seleccione un Tipo de Persona" id="tipoPersona{{ $nota->FormaAbono }}">
+                                                                <option selected disabled>Seleccione un tipo de persona</option>
+                                                                @foreach($tiposTransferencia as $t)
+                                                                    <option value="{{ $t->ID }}" {{ $t->ID == $nota->FormaAbono ? 'selected' : '' }}>{{ $t->Descripcion }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="comentariosInput{{ $nota->ID }}">Comentarios</label>

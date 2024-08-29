@@ -60,7 +60,7 @@ class NotasAbonoController extends Controller
             'cliente' => 'required|string|max:10',
             'ConceptoAbono' => 'required|string|max:255',
             'NumeroFactura' => 'required|string|max:255',
-            'FormaAbono' => 'required|string|max:255',
+            'FormaAbono' => 'required|int',
             'Comentarios' => 'nullable|string|max:255',
             'NombreAutoriza' => 'required|string|max:255',
         ]);

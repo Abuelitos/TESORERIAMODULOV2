@@ -47,10 +47,15 @@
                                                     placeholder="Ingrese el DUI">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nombreClienteInput">Nombre del Cliente</label>
-                                                <input type="text" class="form-control" id="nombreClienteInput"
-                                                    placeholder="Nombre del Cliente" readonly>
+                                                <label for="duiInput">DUI del Cliente</label>
+                                                <input type="text" name="dui" class="form-control" id="duiInput" placeholder="Ingrese el DUI">
+                                                <button type="button" class="btn btn-primary mt-2" onclick="buscarClientePorDui()">Buscar</button>
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="nombreClienteInput">Nombre del Cliente</label>
+                                                <input type="text" class="form-control" id="nombreClienteInput" placeholder="Nombre del Cliente" readonly>
+                                            </div>
+
                                             <div class="mb-3">
                                                 <label for="conceptoInput">Concepto de Abono</label>
                                                 <input type="text" class="form-control" name="ConceptoAbono" id="conceptoInput"
@@ -282,36 +287,34 @@
     </div>
 </div>
 <script>
-    document.getElementById('duiInput').addEventListener('input', function() {
-    let dui = this.value.trim();
-    
-    // Asegurándote de que el DUI tiene un formato de 10 caracteres (XXXXXXX-X)
-    if (/^\d{8}-\d{1}$/.test(dui)) {
-        // Realiza la petición a la ruta definida para buscar el cliente por DUI
-        fetch(`/clientes/buscar?dui=${dui}`)
-            .then(response => response.json())
-            .then(data => {
+    function buscarClientePorDui() {
+    var dui = $("#duiInput").val();
+
+    if (dui) {
+        $.ajax({
+            type: 'GET',
+            url: '{{ route('clientes.buscarPorDui') }}',
+            data: { dui: dui },
+            dataType: 'json',
+            success: function(data) {
                 if (data.success) {
-                    // Si el cliente es encontrado, se rellena el campo del nombre
-                    document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
+                    // Usar los datos del cliente encontrado
+                    $("#nombreClienteInput").val(data.cliente.nombre || '');
                 } else {
-                    // Si no se encuentra el cliente, se muestra un mensaje en el campo de nombre
-                    document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
+                    // Si no se encuentra el cliente, limpia el campo
+                    $("#nombreClienteInput").val('');
+                    alert('Cliente no encontrado');
                 }
-            })
-            .catch(error => {
-                // Manejo de errores, si hay un problema en la búsqueda
-                console.error('Error:', error);
-                document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
-            });
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
     } else {
-        // Si el DUI no tiene el formato esperado, limpia el campo de nombre
-        document.getElementById('nombreClienteInput').value = '';
+        alert('Por favor ingrese un DUI');
     }
-});
+}
 
-
-</script>
-    
+</script>    
     
 @endsection

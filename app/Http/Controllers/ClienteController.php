@@ -71,17 +71,18 @@ class ClienteController extends Controller
         return response()->json(null, 204);
     }
 
-    public function buscarPorDui(Request $request)
+    public function buscarPorDui($id)
     {
-        $dui = $request->query('dui');  // Aquí se obtiene el DUI desde la consulta en la URL
-        $cliente = Cliente::where('dui', $dui)->first();
-
+        // Here, $id represents the DUI passed in the URL
+        $cliente = Cliente::where('dui', $id)->first();
+    
         if ($cliente) {
             return response()->json(['success' => true, 'cliente' => $cliente]);
         } else {
             return response()->json(['success' => false, 'message' => 'Cliente no encontrado']);
         }
     }
-
+    
+    
 
 }

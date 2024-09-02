@@ -41,16 +41,17 @@
                                                 <input type="date" name="Fecha" class="form-control" id="fechaInput"
                                                     placeholder="Fecha">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="duiInput">DUI del Cliente</label>
-                                                <input type="text" name="cliente" class="form-control" id="duiInput"
-                                                    placeholder="Ingrese el DUI">
-                                            </div>
+                                            
                                             <div class="mb-3">
                                                 <label for="duiInput">DUI del Cliente</label>
                                                 <input type="text" name="dui" class="form-control" id="duiInput" placeholder="Ingrese el DUI">
-                                                <button type="button" class="btn btn-primary mt-2" onclick="buscarClientePorDui()">Buscar</button>
+                                                <button type="button" id="buscarDuiBtn" class="btn btn-primary mt-2" onclick="buscarClientePorDui()">Buscar</button>
                                             </div>
+                                            <script>
+                                                $(document).ready(function(){
+                                                    $('#duiInput').inputmask('99999999-9');  // Formato del DUI
+                                                });
+                                            </script>
                                             <div class="mb-3">
                                                 <label for="nombreClienteInput">Nombre del Cliente</label>
                                                 <input type="text" class="form-control" id="nombreClienteInput" placeholder="Nombre del Cliente" readonly>
@@ -286,35 +287,29 @@
         </div>
     </div>
 </div>
+
+
 <script>
     function buscarClientePorDui() {
-    var dui = $("#duiInput").val();
+    var dui = document.getElementById('duiInput').value;
 
-    if (dui) {
-        $.ajax({
-            type: 'GET',
-            url: '{{ route('clientes.buscarPorDui') }}',
-            data: { dui: dui },
-            dataType: 'json',
-            success: function(data) {
-                if (data.success) {
-                    // Usar los datos del cliente encontrado
-                    $("#nombreClienteInput").val(data.cliente.nombre || '');
-                } else {
-                    // Si no se encuentra el cliente, limpia el campo
-                    $("#nombreClienteInput").val('');
-                    alert('Cliente no encontrado');
-                }
-            },
-            error: function(error) {
-                console.error(error);
+    $.ajax({
+        url: '{{ url('clientes/buscar') }}/' + dui, // URL is updated to include the DUI
+        method: 'GET',
+        success: function(response) {
+            if(response.success) {
+                document.getElementById('nombreClienteInput').value = response.cliente.Nombres+' '+response.cliente.Apellidos;
+            } else {
+                alert(response.message);
             }
-        });
-    } else {
-        alert('Por favor ingrese un DUI');
-    }
+        },
+        error: function() {
+            alert('Error al buscar el cliente.');
+        }
+    });
 }
 
-</script>    
-    
+</script>
+
+
 @endsection

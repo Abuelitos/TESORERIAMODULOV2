@@ -32,6 +32,7 @@ use App\Http\Controllers\NotasAbonoController;
 use App\Http\Controllers\RemesasPagoController;
 use App\Http\Controllers\RemesasCobroController;
 use App\Http\Controllers\ChequeController;
+use App\Http\Controllers\ReporteController;
 
             
 
@@ -54,6 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('remesasPagos', RemesasPagoController::class);
 	Route::resource('remesasCobros', RemesasCobroController::class);
 	Route::resource('cheques', ChequeController::class);
+	Route::resource('reporteria', ReporteController::class);
+	Route::post('reporteria/generar', [ReporteController::class, 'generarReporte'])->name('generarReporte');
 	Route::get('/clientes/{cliente}/cambiar-estado', [ClienteController::class, 'cambiarEstado'])->name('cliente.cambiarEstado');
 	Route::get('clientes/buscar/{id}', [ClienteController::class, 'buscarPorDui'])->name('clientes.buscarPorDui');
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');

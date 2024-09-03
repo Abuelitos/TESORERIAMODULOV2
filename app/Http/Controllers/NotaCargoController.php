@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\NotaCargo;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use App\Models\TipoTransferencia;
 
 class NotaCargoController extends Controller
 {
@@ -16,7 +17,8 @@ class NotaCargoController extends Controller
     {
         $notasCargo = NotaCargo::with('cliente')->get();
         $clientes = Cliente::all();
-        return view('notasCargos.index', compact('notasCargo', 'clientes'));
+        $tiposTransferencia = TipoTransferencia::all();
+        return view('notasCargos.index', compact('notasCargo', 'clientes', 'tiposTransferencia'));
     }
 
     /**

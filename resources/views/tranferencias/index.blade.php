@@ -90,7 +90,12 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="tipoTransferenciaInput">Tipo de Transferencia</label>
-                                                    <input type="text" name="TipoTransferencia" class="form-control" id="tipoTransferenciaInput">
+                                                    <select class="form-select" name="TipoTransferencia" id="tipoTransferenciaInput">
+                                                        <option value="Nacional">Elegir Tipo de transferencia</option>
+                                                        @foreach($tipoPagos as $tipoTransferencia)
+                                                        <option value="{{ $tipoTransferencia->TipoPagoId }}">{{ $tipoTransferencia->Descripcion }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="conceptoTransferenciaInput">Concepto de Transferencia</label>

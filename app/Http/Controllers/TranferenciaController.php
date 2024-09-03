@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transferencia;
 use App\Models\Banco;
 use Illuminate\Http\Request;
+use App\Models\TipoPago;
 
 class TranferenciaController extends Controller
 {
@@ -13,7 +14,8 @@ class TranferenciaController extends Controller
         // Obtener todas las transferencias con sus bancos asociados
         $transferencias = Transferencia::with(['bancoOrigen', 'bancoDestino'])->get();
         $bancos = Banco::all();
-        return view('tranferencias.index', compact('transferencias', 'bancos'));
+        $tipoPagos = TipoPago::all();
+        return view('tranferencias.index', compact('transferencias', 'bancos', 'tipoPagos'));
     }
 
     public function store(Request $request)

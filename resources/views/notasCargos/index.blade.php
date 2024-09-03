@@ -44,6 +44,7 @@
                                                     <label for="duiInput">DUI del Cliente</label>
                                                     <input type="text" name="cliente_dui" class="form-control" id="duiInput"
                                                         placeholder="Ingrese el DUI">
+                                                    <button type="button" id="buscarDuiBtn" class="btn btn-primary mt-2" onclick="buscarClientePorDui()">Buscar</button>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="nombreClienteInput">Nombre del Cliente</label>
@@ -62,8 +63,12 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="formaInput">Forma de Cobro</label>
-                                                    <input type="text" name="FormaCobro" class="form-control" id="formaInput"
-                                                        placeholder="Forma de Cobro">
+                                                    <select class="form-select" name="FormaCobro" aria-label="Seleccione un Tipo de Persona" id="FormaAbono">
+                                                        <option selected disabled>Seleccione un tipo de abono</option>
+                                                        @foreach($tiposTransferencia as $t)
+                                                            <option value="{{ $t->ID }}">{{ $t->Descripcion }}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="comentariosInput">Comentarios</label>
@@ -174,8 +179,12 @@
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="formaInput{{ $nota->ID }}">Forma de Cobro</label>
-                                                            <input type="text" name="FormaCobro" class="form-control"
-                                                                id="formaInput{{ $nota->ID }}" value="{{ $nota->FormaCobro }}">
+                                                            <select class="form-select" name="FormaCobro" aria-label="Seleccione un Tipo de Persona" id="tipoPersona{{ $nota->FormaCobro }}">
+                                                                <option selected disabled>Seleccione un tipo de persona</option>
+                                                                @foreach($tiposTransferencia as $t)
+                                                                    <option value="{{ $t->ID }}" {{ $t->ID == $nota->FormaCobro ? 'selected' : '' }}>{{ $t->Descripcion }}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="comentariosInput{{ $nota->ID }}">Comentarios</label>
@@ -268,28 +277,35 @@
         </div>
     </div>
 </div>
-<script>
-    document.getElementById('duiInput').addEventListener('input', function() {
-        let dui = this.value;
-        if (dui.length === 10) {  // Asumiendo que el DUI tiene exactamente 10 caracteres
-            fetch(`/clientes/buscar?dui=${dui}`)  // Aquí se envía el DUI como un parámetro en la URL
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('nombreClienteInput').value = `${data.cliente.Nombres} ${data.cliente.Apellidos}`;
-                    } else {
-                        document.getElementById('nombreClienteInput').value = 'Cliente no encontrado';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('nombreClienteInput').value = 'Error en la búsqueda';
-                });
-        } else {
-            document.getElementById('nombreClienteInput').value = '';
-        }
-    });
+<!-- Add jQuery and Inputmask here -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
 
+<script>
+    $(document).ready(function(){
+        $('#duiInput').inputmask('99999999-9');  // Formato del DUI
+    });
+</script>
+
+<script>
+    function buscarClientePorDui() {
+        var dui = document.getElementById('duiInput').value;
+
+        $.ajax({
+            url: '{{ url('clientes/buscar') }}/' + dui, // URL is updated to include the DUI
+            method: 'GET',
+            success: function(response) {
+                if(response.success) {
+                    document.getElementById('nombreClienteInput').value = response.cliente.Nombres + ' ' + response.cliente.Apellidos;
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('Error al buscar el cliente.');
+            }
+        });
+    }
 </script>
 @endsection
 

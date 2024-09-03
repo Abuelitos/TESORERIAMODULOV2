@@ -48,8 +48,7 @@
                                 <button type="button" class="btn btn-block bg-gradient-primary mb-3" onclick="generarReporte()">Generar Reporte</button>
                             </div>
                         </div>
-                    </form>
-                    <br>
+                    </form>                    
                     <br>
                     <!-- Botón de exportación a Excel -->
                     <div class="row px-4">

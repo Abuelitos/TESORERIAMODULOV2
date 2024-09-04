@@ -44,7 +44,7 @@
                                             
                                             <div class="mb-3">
                                                 <label for="duiInput">DUI del Cliente</label>
-                                                <input type="text" name="dui" class="form-control" id="duiInput" placeholder="Ingrese el DUI">
+                                                <input type="text" name="cliente" class="form-control" id="duiInput" placeholder="Ingrese el DUI">
                                                 <button type="button" id="buscarDuiBtn" class="btn btn-primary mt-2" onclick="buscarClientePorDui()">Buscar</button>
                                             </div>
                                             <div class="mb-3">
